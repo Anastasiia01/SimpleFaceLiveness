@@ -21,7 +21,7 @@ class CustomModelCheckpoint(tf.keras.callbacks.Callback):
             with open(self.path) as file:
                 print("Reading from json ... ")
                 data = json.load(file)
-            data[self.model_name]['accuracy'] = self.lastvalaccs
+            data[self.model_name]['accuracy'] = self.lastvalacc
             with open(self.path,'w') as file:
                 print(f"Updating accuracy to be {self.lastvalacc} ... ")
                 json.dump(data, file, indent=2)
