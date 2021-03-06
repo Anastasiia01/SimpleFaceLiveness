@@ -1,0 +1,10 @@
+{
+  "CNN": {
+    "accuracy": 0,
+    "file": "model_CNN_v1.h5"
+  },
+  "Inception": {
+    "accuracy": 0,
+    "file": "model_inception_v1.h5"
+  }
+}
