@@ -65,7 +65,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parser for Face Liveness test")
     parser.add_argument('--model', '-m', type=str, default='CNN', help='CNN or Inception')
-    parser.add_argument('--lr', type=int, default=0.0005, help='learning rate')
+    parser.add_argument('--lr', type=float, default=0.0005, help='learning rate')
     parser.add_argument('--epoch', type=int, default=50, help='number of epochs')
     parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
     args = parser.parse_args()
