@@ -54,7 +54,7 @@ def main(args):
             print("Starting from scratch by creating a new model")
             model = cnn.create_model()  # create and train a new model   
         print("Starting training ...")
-        model = cnn.train_model(model, train_images,train_labels,test_images,test_labels, 50, accuracy, file_to_save, model_name)
+        model = cnn.train_model(model, train_images,train_labels,test_images,test_labels, 50, accuracy, model_file, model_name)
       
         test_loss, test_acc = cnn.evaluate(model, test_images,  test_labels)
         print('iteration = ' + str(i) + ' ---------------------------------------------========')
