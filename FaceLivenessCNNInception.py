@@ -17,6 +17,8 @@ path = "config.json"
 def main(args):
     #---set up path for training and test data (NUAA face liveness dataset)--------------
     model_name = args.model
+    learning_rate = args.lr
+    epoch = args.epoch
     with open(path) as file:
         print("Reading from json ... ")
         data = json.load(file)[model_name]
@@ -52,9 +54,9 @@ def main(args):
             model = cnn.load_model(model_file)#to use pretrained model
         else:
             print("Starting from scratch by creating a new model")
-            model = cnn.create_model()  # create and train a new model   
+            model = cnn.create_model(learning_rate)  # create and train a new model   
         print("Starting training ...")
-        model = cnn.train_model(model, train_images,train_labels,test_images,test_labels, 50, accuracy, model_file, model_name)
+        model = cnn.train_model(model, train_images,train_labels,test_images,test_labels, epoch, accuracy, model_file, model_name)
       
         test_loss, test_acc = cnn.evaluate(model, test_images,  test_labels)
         print('iteration = ' + str(i) + ' ---------------------------------------------========')
@@ -63,8 +65,9 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parser for Face Liveness test")
     parser.add_argument('--model', '-m', type=str, default='CNN', help='CNN or Inception')
+    parser.add_argument('--lr', type=int, default=0.0005, help='learning rate')
+    parser.add_argument('--epoch', type=int, default=50, help='number of epochs')
     parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
-    #add learning rate, epoch
     args = parser.parse_args()
     sys.exit(int(main(args) or 0))
     

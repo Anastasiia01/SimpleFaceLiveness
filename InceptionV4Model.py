@@ -239,7 +239,7 @@ class InceptionV4Model(object):
         model = Model(inputs, X, name='inception_v4')
         return model
 
-    def create_model(self, ):
+    def create_model(self, learning_rate = 0): # learning_rate is never used, added to match signature of CNN create_model
         num_classes = 1    
         # input image dimensions 
         img_rows, img_cols = 64, 64
@@ -250,8 +250,8 @@ class InceptionV4Model(object):
         model.compile(optimizer= 'adam' , loss= tf.keras.losses.binary_crossentropy, metrics=['accuracy'])
         return model
 
-    def train_model(self, model, train_images,train_labels,test_images, test_labels, epochs):
-        cbk = CustomModelCheckpoint()  # so that we can save the best model
+    def train_model(self, model, train_images,train_labels,test_images, test_labels, epochs, best_accuracy,file_to_save, name):
+        cbk = CustomModelCheckpoint(best_accuracy,file_to_save, name)  # so that we can save the best model
         history = model.fit(train_images, train_labels, epochs=epochs, callbacks=[cbk], 
                         validation_data=(test_images, test_labels))
         return model

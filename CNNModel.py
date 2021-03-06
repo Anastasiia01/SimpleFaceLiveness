@@ -5,7 +5,7 @@ from keras.optimizers import SGD
 
 import matplotlib.pyplot as plt
 class CNNModel(object):
-    def create_model(self):
+    def create_model(self, learning_rate):
         # highest accuracy liveness on non-diffused iages- 16 (13,13) => 32 (7,7) => 64 (5,5) => 64 => 1 - acc = 94.2
         model = models.Sequential()
         model.add(layers.Conv2D(16, (15, 15), activation='relu', input_shape=(64, 64,1)))
@@ -20,7 +20,7 @@ class CNNModel(object):
         model.add(layers.Dense(64, activation='relu'))
         #model.add(layers.Dense(2))  # for sparse_categorial_crossentropy - then choose 2 neurons in next layer
         model.add(layers.Dense(1, activation='sigmoid'))
-        opt = tf.keras.optimizers.Adam(lr=0.0005, decay=1e-6)
+        opt = tf.keras.optimizers.Adam(lr=learning_rate, decay=1e-6)
         model.compile(optimizer= opt , loss= tf.keras.losses.binary_crossentropy, metrics=['accuracy'])
         return model
 
