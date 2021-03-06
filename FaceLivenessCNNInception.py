@@ -39,7 +39,6 @@ def main(args):
 
     for i in range(0,1):
 
-        json.load()
         #--pick one of the following models for face liveness detection---
         if model_name =='CNN':
             print("Selected CNN")
@@ -55,7 +54,7 @@ def main(args):
             print("Starting from scratch by creating a new model")
             model = cnn.create_model()  # create and train a new model   
         print("Starting training ...")
-        model = cnn.train_model(model, train_images,train_labels,test_images,test_labels, 50, accuracy)
+        model = cnn.train_model(model, train_images,train_labels,test_images,test_labels, 50, accuracy, file_to_save, model_name)
       
         test_loss, test_acc = cnn.evaluate(model, test_images,  test_labels)
         print('iteration = ' + str(i) + ' ---------------------------------------------========')
@@ -65,6 +64,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parser for Face Liveness test")
     parser.add_argument('--model', '-m', type=str, default='CNN', help='CNN or Inception')
     parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
+    #add learning rate, epoch
     args = parser.parse_args()
     sys.exit(int(main(args) or 0))
     

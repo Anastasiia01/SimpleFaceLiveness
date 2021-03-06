@@ -28,9 +28,9 @@ class CNNModel(object):
         model = tf.keras.models.load_model(model_file_name)
         return model
 
-    def train_model(self, model, train_images,train_labels,test_images, test_labels, epochs, best_accuracy):
+    def train_model(self, model, train_images,train_labels,test_images, test_labels, epochs, best_accuracy,file_to_save, name):
      
-        cbk = CustomModelCheckpoint(best_accuracy)  # so that we can save the best model
+        cbk = CustomModelCheckpoint(best_accuracy,file_to_save, name)  # so that we can save the best model
         history = model.fit(train_images, train_labels, epochs=epochs, callbacks=[cbk], 
                         validation_data=(test_images, test_labels))
         #plt.plot(history.history['accuracy'], label='accuracy')
