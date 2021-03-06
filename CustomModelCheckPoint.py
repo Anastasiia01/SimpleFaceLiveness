@@ -6,6 +6,7 @@ class CustomModelCheckpoint(tf.keras.callbacks.Callback):
         # set the lastvalacc to a higher value (best that was found) in the 
         # previous training so that it looks for a better model than the last one
         self.lastvalacc = best_accuracy  #0.9796 #orig inception v4 0.9788, # 0.9703 Inception v4 diffused # last best
+        print(f"**********Initial Accuracy {self.lastvalacc} ***********")
         self.path = "config.json"
         self.model_file = model_file
         self.model_name = model_name
