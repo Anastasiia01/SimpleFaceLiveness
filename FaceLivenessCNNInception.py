@@ -18,10 +18,11 @@ def main(args):
     #---set up path for training and test data (NUAA face liveness dataset)--------------
     model_name = args.model
     with open(path) as file:
+        print("Reading from json ... ")
         data = json.load(file)[model_name]
         accuracy = data['accuracy']
         model_file = data['file']
-
+    print("Reading input from the NUAA dataset ... ")
     readd = ReadData()
     clientdir = '/content/drive/MyDrive/NormalizedFace_NUAA/ClientNormalized/'
     imposterdir = '/content/drive/MyDrive/NormalizedFace_NUAA/ImposterNormalized/'
@@ -41,18 +42,24 @@ def main(args):
         json.load()
         #--pick one of the following models for face liveness detection---
         if model_name =='CNN':
+            print("Selected CNN")
             cnn = CNNModel()  # simple CNN model for face liveness detection---
         else:
+            print("Selected Inception")
             cnn = InceptionV4Model()  #Inception model for liveness detection
 
         if args.resume:
+            print("Resuming from the best model")
             model = cnn.load_model(model_file)#to use pretrained model
         else:
-            model = cnn.create_model()  # create and train a new model            
+            print("Starting from scratch by creating a new model")
+            model = cnn.create_model()  # create and train a new model   
+        print("Starting training ...")
         model = cnn.train_model(model, train_images,train_labels,test_images,test_labels, 50, accuracy)
       
         test_loss, test_acc = cnn.evaluate(model, test_images,  test_labels)
         print('iteration = ' + str(i) + ' ---------------------------------------------========')
+    print("**************************************Done***************************************")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parser for Face Liveness test")
